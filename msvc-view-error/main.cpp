@@ -16,7 +16,8 @@ int main()
 
     auto view = tokens
         | std::views::drop_while([](auto const & token) { return token.used; })
-        | std::views::take_while([](auto const & token) { return !token.used; });
+        | std::views::take_while([](auto const & token) { return !token.used; })
+        | std::views::filter([](auto const &) { return true; });
 
     auto strs = std::vector<std::string>();
     for (auto& elem : view)
