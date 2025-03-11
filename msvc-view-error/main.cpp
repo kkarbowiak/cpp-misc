@@ -18,15 +18,12 @@ int main()
         | std::views::drop_while([](auto const & token) { return token.used; })
         | std::views::take_while([](auto const & token) { return !token.used; });
 
-    auto transform = view
-        | std::views::transform([](auto & token)
-          {
-              token.used = true;
-              return token.value;
-          })
-        | std::views::common;
-
-    auto strs = std::vector(transform.begin(), transform.end());
+    auto strs = std::vector<std::string>();
+    for (auto& elem : view)
+    {
+        elem.used = true;
+        strs.push_back(elem.value);
+    }
 
     for (auto const & str : strs)
     {
