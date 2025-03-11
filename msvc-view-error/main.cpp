@@ -16,19 +16,7 @@ int main()
 
     auto view = tokens
         | std::views::drop_while([](auto const & token) { return token.used; })
-        | std::views::take_while([](auto const & token) { return !token.used; })
-        | std::views::filter([](auto const & token)
-          {
-              if (token.value != "++")
-              {
-                  return true;
-              }
-              if (token.value == "++")
-              {
-                  return false;
-              }
-              return !token.value.starts_with("+");
-          });
+        | std::views::take_while([](auto const & token) { return !token.used; });
 
     auto transform = view
         | std::views::transform([](auto & token)
