@@ -37,12 +37,12 @@ int main()
           })
         | std::views::common;
 
-    // auto strs = std::vector(transform.begin(), transform.end());
+    auto strs = std::vector(transform.begin(), transform.end());
 
-    // for (auto const & str : strs)
-    // {
-    //     std::cout << str << ", ";
-    // }
+    for (auto const & str : strs)
+    {
+        std::cout << str << ", ";
+    }
 
     return 0;
 }
