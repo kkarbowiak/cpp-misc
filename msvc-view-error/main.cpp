@@ -33,6 +33,7 @@ int main()
     auto transform = view
         | std::views::transform([](auto & token)
           {
+              token.used = true;
               return token.value;
           })
         | std::views::common;
