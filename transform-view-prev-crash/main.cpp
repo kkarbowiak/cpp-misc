@@ -1,3 +1,4 @@
+#include <iterator>
 #include <memory>
 #include <ranges>
 #include <vector>
