@@ -60,15 +60,6 @@ class Der1 final : public Base
         }
 };
 
-class Der2 final : public Base
-{
-    public:
-        explicit Der2(Options options)
-          : Base(std::move(options))
-        {
-        }
-};
-
 auto print_names(std::ranges::view auto ders) -> void
 {
     for (auto it = ders.begin(); it != ders.end(); ++it)
@@ -83,8 +74,8 @@ auto print_names(std::ranges::view auto ders) -> void
 int main()
 {
     std::vector<std::unique_ptr<Base>> ders;
-    ders.push_back(std::make_unique<Der1>(Options{"Der1"}));
-    ders.push_back(std::make_unique<Der2>(Options{"Der2"}));
+    ders.push_back(std::make_unique<Der1>(Options{"1"}));
+    ders.push_back(std::make_unique<Der1>(Options{"2"}));
 
     print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Fmt const *>(ca.get()); }));
 }
