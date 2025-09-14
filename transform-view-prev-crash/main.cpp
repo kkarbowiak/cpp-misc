@@ -4,13 +4,7 @@
 #include <vector>
 
 
-class Fmt
-{
-    protected:
-        virtual ~Fmt() = default;
-};
-
-class Base : public Fmt
+class Base
 {
     public:
         Base() = default;
@@ -43,5 +37,5 @@ int main()
     ders.push_back(std::make_unique<Der>());
     ders.push_back(std::make_unique<Der>());
 
-    print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Fmt const *>(ca.get()); }));
+    print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Base const *>(ca.get()); }));
 }
