@@ -1,4 +1,3 @@
-#include <iostream>
 #include <memory>
 #include <ranges>
 #include <string>
@@ -51,10 +50,10 @@ class Base : public Fmt, public OptionsHolder
         }
 };
 
-class Der1 final : public Base
+class Der final : public Base
 {
     public:
-        explicit Der1(Options options)
+        explicit Der(Options options)
           : Base(std::move(options))
         {
         }
@@ -74,8 +73,8 @@ auto print_names(std::ranges::view auto ders) -> void
 int main()
 {
     std::vector<std::unique_ptr<Base>> ders;
-    ders.push_back(std::make_unique<Der1>(Options{"1"}));
-    ders.push_back(std::make_unique<Der1>(Options{"2"}));
+    ders.push_back(std::make_unique<Der>(Options{"1"}));
+    ders.push_back(std::make_unique<Der>(Options{"2"}));
 
     print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Fmt const *>(ca.get()); }));
 }
