@@ -13,34 +13,29 @@ class Fmt
         virtual ~Fmt() = default;
 };
 
-struct Options
-{
-    std::string name;
-};
-
 class Base : public Fmt
 {
     public:
-        explicit Base(Options options)
-          : m_options(std::move(options))
+        explicit Base(std::string name)
+          : m_name(std::move(name))
         {
         }
         virtual ~Base() = default;
 
         auto get_name() const -> std::string const & override
         {
-            return m_options.name;
+            return m_name;
         }
 
     private:
-        Options m_options;
+        std::string m_name;
 };
 
 class Der final : public Base
 {
     public:
-        explicit Der(Options options)
-          : Base(std::move(options))
+        explicit Der(std::string name)
+          : Base(std::move(name))
         {
         }
 };
@@ -59,8 +54,8 @@ auto print_names(std::ranges::view auto ders) -> void
 int main()
 {
     std::vector<std::unique_ptr<Base>> ders;
-    ders.push_back(std::make_unique<Der>(Options{"1"}));
-    ders.push_back(std::make_unique<Der>(Options{"2"}));
+    ders.push_back(std::make_unique<Der>("1"));
+    ders.push_back(std::make_unique<Der>("2"));
 
     print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Fmt const *>(ca.get()); }));
 }
