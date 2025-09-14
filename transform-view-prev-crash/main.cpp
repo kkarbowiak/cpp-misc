@@ -20,7 +20,7 @@ class Der final : public Base
         }
 };
 
-auto print_names(std::ranges::view auto ders) -> void
+auto loop(std::ranges::view auto ders) -> void
 {
     for (auto it = ders.begin(); it != ders.end(); ++it)
     {
@@ -37,5 +37,5 @@ int main()
     ders.push_back(std::make_unique<Der>());
     ders.push_back(std::make_unique<Der>());
 
-    print_names(ders | std::views::transform([](auto const & ca) { return static_cast<Base const *>(ca.get()); }));
+    loop(ders | std::views::transform([](auto const & ca) { return static_cast<Base const *>(ca.get()); }));
 }
