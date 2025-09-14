@@ -18,36 +18,22 @@ struct Options
     std::string name;
 };
 
-class OptionsHolder
-{
-    protected:
-        explicit OptionsHolder(Options options)
-          : m_options(std::move(options))
-        {
-        }
-
-        auto get_name() const -> std::string const &
-        {
-            return m_options.name;
-        }
-
-    private:
-        Options m_options;
-};
-
-class Base : public Fmt, public OptionsHolder
+class Base : public Fmt
 {
     public:
         explicit Base(Options options)
-          : OptionsHolder(std::move(options))
+          : m_options(std::move(options))
         {
         }
         virtual ~Base() = default;
 
         auto get_name() const -> std::string const & override
         {
-            return OptionsHolder::get_name();
+            return m_options.name;
         }
+
+    private:
+        Options m_options;
 };
 
 class Der final : public Base
