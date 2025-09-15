@@ -17,9 +17,9 @@ auto loop(std::ranges::view auto foos) -> void
 
 int main()
 {
-    std::vector<std::string> foos;
-    foos.push_back(std::string());
-    foos.push_back(std::string());
+    std::vector<int> foos;
+    foos.push_back(1);
+    foos.push_back(2);
 
-    loop(foos | std::views::transform([](auto const & up) { return up; }));
+    loop(foos | std::views::transform([](auto i) { return i; }));
 }
