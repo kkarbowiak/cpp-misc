@@ -4,11 +4,11 @@
 #include <vector>
 
 
-auto loop(std::ranges::view auto foos) -> void
+auto loop(std::ranges::view auto ints) -> void
 {
-    for (auto it = foos.begin(); it != foos.end(); ++it)
+    for (auto it = ints.begin(); it != ints.end(); ++it)
     {
-        if (it != foos.begin())
+        if (it != ints.begin())
         {
             (void) std::prev(it);
         }
@@ -17,9 +17,9 @@ auto loop(std::ranges::view auto foos) -> void
 
 int main()
 {
-    std::vector<int> foos;
-    foos.push_back(1);
-    foos.push_back(2);
+    std::vector<int> ints;
+    ints.push_back(1);
+    ints.push_back(2);
 
-    loop(foos | std::views::transform([](auto i) { return i; }));
+    loop(ints | std::views::transform([](auto i) { return i; }));
 }
