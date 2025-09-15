@@ -24,15 +24,15 @@ auto say_all(std::ranges::view auto bases) -> void
 {
     for (auto const & base : bases)
     {
-        base->say();
+        base.say();
     }
 }
 
 int main()
 {
-    std::vector<std::shared_ptr<Derived>> bases;
-    bases.push_back(std::make_shared<Derived>());
-    bases.push_back(std::make_shared<Derived>());
+    std::vector<std::unique_ptr<Derived>> bases;
+    bases.push_back(std::make_unique<Derived>());
+    bases.push_back(std::make_unique<Derived>());
 
-    say_all(bases | std::views::transform([](auto const & up) { return static_cast<Base *>(up.get()); }));
+    say_all(bases | std::views::transform([](auto const & up) { return static_cast<Base &>(*(up.get())); }));
 }
