@@ -4,27 +4,18 @@
 #include <vector>
 
 
-class Base
+class Foo
 {
     public:
-        Base() = default;
-        virtual ~Base() = default;
+        Foo() = default;
+        virtual ~Foo() = default;
 };
 
-class Der final : public Base
+auto loop(std::ranges::view auto foos) -> void
 {
-    public:
-        Der()
-          : Base()
-        {
-        }
-};
-
-auto loop(std::ranges::view auto bases) -> void
-{
-    for (auto it = bases.begin(); it != bases.end(); ++it)
+    for (auto it = foos.begin(); it != foos.end(); ++it)
     {
-        if (it != bases.begin())
+        if (it != foos.begin())
         {
             (void) std::prev(it);
         }
@@ -33,9 +24,9 @@ auto loop(std::ranges::view auto bases) -> void
 
 int main()
 {
-    std::vector<std::unique_ptr<Base>> ders;
-    ders.push_back(std::make_unique<Der>());
-    ders.push_back(std::make_unique<Der>());
+    std::vector<std::unique_ptr<Foo>> foos;
+    foos.push_back(std::make_unique<Foo>());
+    foos.push_back(std::make_unique<Foo>());
 
     loop(foos | std::views::transform([](auto const & up) { return up.get(); }));
 }
