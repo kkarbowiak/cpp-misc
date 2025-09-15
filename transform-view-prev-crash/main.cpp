@@ -37,5 +37,5 @@ int main()
     ders.push_back(std::make_unique<Der>());
     ders.push_back(std::make_unique<Der>());
 
-    loop(ders | std::views::transform([](auto const & up) { return static_cast<Base const *>(up.get()); }));
+    loop(foos | std::views::transform([](auto const & up) { return up.get(); }));
 }
