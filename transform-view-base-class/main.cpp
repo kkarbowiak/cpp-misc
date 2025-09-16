@@ -34,5 +34,6 @@ int main()
     bases.push_back(std::make_unique<Derived>());
     bases.push_back(std::make_unique<Derived>());
 
-    say_all(bases | std::views::transform([](auto const & up) { return static_cast<Base &>(*(up.get())); }));
+    // make sure lambda returns a reference (see https://stackoverflow.com/questions/79765629/can-i-use-stdviewstransform-to-create-view-of-abstract-base-classes)
+    say_all(bases | std::views::transform([](auto const & up) -> Base & { return static_cast<Base &>(*(up.get())); }));
 }
